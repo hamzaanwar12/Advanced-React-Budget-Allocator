@@ -57,6 +57,9 @@ export default function ChangeAllocation() {
         if (number >= 0 && number <= budget) {
             setPrice(number)
         }
+        else{
+            alert("Can't give thevalu greater than budget : " + sign + budget)
+        }
     }
 
 

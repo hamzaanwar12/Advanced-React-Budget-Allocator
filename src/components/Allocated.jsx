@@ -30,7 +30,7 @@ export default function Allocated({ department, price, index }) {
       {price ?
         <div className='flex text-lg h-12 items-center w-[98%] justify-between border-b-2 border-b-slate-600'>
           <h4 className='w-[10%]'>{department}</h4>
-          <h4 className='w-[3%]'>{sign + " " + price}</h4>
+          <h4 className='w-[5%]'>{sign + " " + price}</h4>
           <button onClick={handleIncrease} className='cursor-pointer flex items-center text-2xl text-white justify-center bg-green-700 rounded-[50%] w-7 h-7'><FaPlus /></button>
           <button onClick={handleDecrease} className='cursor-pointer flex items-center text-2xl text-white justify-center bg-red-700 rounded-[50%] w-7 h-7'><FaMinus /></button>
           <button onClick={handleCancel} className='relative right-[4%] cursor-pointer text-2xl'><MdCancel /></button>

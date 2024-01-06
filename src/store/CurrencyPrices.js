@@ -46,7 +46,8 @@ const currencySlice = createSlice({
     reducers:
     {
 
-        setSign(state, action) {
+        setSign(state, action) 
+        {
             state.sign = action.payload.sign
         },
         setBudget(state, action) {
@@ -62,26 +63,45 @@ const currencySlice = createSlice({
             const index = state.allocations.findIndex(element => element.department === department)
             const allocations = [...state.allocations]
 
-            if (operation == "Add" && (allocations[index].price + parseInt(price)) <= state.budget) 
+            if (operation == "Add")  
             {
+                if((state.spent + parseInt(price)) <= state.budget)
+                {
+                    allocations[index].price += parseInt(price)
+                    state.allocations = [...allocations]
+                    state.spent = state.spent + action.payload.price
+                }
+                else
+                {
+                    alert('Allocation cannot exceed the remaining funds : '+state.sign+(state.budget-state.spent))
+                }
 
-                allocations[index].price += parseInt(price)
-                state.allocations = [...allocations]
-                state.spent = state.spent + action.payload.price
             }
-            else if (operation == "Subtract" && (allocations[index].price - parseInt(price)) >= 0) 
+            else if (operation == "Subtract") 
             {
-                state.allocations[index].price -= parseInt(action.payload.price)
-                state.spent = state.spent - action.payload.price
+                if( (allocations[index].price - parseInt(price)) >= 0)
+                {
+
+                    state.allocations[index].price -= parseInt(action.payload.price)
+                    state.spent = state.spent - action.payload.price
+                }
+                else{
+                    alert("only allocated budget can be deducted : "+state.sign+state.allocations[index].price)
+                }
             }
-            else if (operation == "Update") {
-                if (price >= 0 && (price + state.spent) <= state.budget) 
+            else if (operation == "Update") 
+            {
+                if (price >= 0 && (price + state.spent-allocations[index].price) <= state.budget) 
                 {
 
                     const checker = { ...state.allocations[index], price: parseInt(action.payload.price) }
 
                     state.allocations[index] = { ...checker }
                     state.spent = check(state.allocations)
+                }
+                else
+                {
+                    alert("The value shouls be between the 0 and the budget : "+state.sign+state.budget)
                 }
             }
         },

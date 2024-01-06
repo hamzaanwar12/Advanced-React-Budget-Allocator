@@ -33,16 +33,14 @@ export default function BudgetAllocationTop() {
 
     const handleBudget = (event) => {
         let number = parseInt(event.target.value)
-        if ( number <= 20000 && number > -1)
+        if ( number <= 20000 && number >= spent)
         {
             setTotal(number)
             dispatch(currencyActions.setBudget(number))
         }
-        else if (number > 20000) {
-            alert("Budget can't exceed the value 20,000 in any Currency")
+        else {
+            alert("Budget can't exceed the value 20,000 in any Currency and can't be less than the spent"+sign+spent)
         }
-        else if (number < 0)
-            alert("Budget can't be negative in any Currency")
     }
 
     return (
